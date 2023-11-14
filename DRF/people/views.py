@@ -10,8 +10,8 @@ from .models import People
 
 class PeopleAPIView(APIView):
     def get(self, request):
-        lst = People.objects.all().values()
-        return Response({'posts': list(lst)})
+        w = People.objects.all()
+        return Response({'posts': PeopleSerializer(w, many=True).data})
 
     def post(self, request):
         post_new = People.objects.create(
