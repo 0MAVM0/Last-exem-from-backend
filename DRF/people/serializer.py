@@ -20,6 +20,19 @@ class PeopleSerializer(serializers.Serializer):
     is_published = serializers.BooleanField(default=True)
     cat_id = serializers.IntegerField()
 
+    def create(self, validated_data):
+        return People.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get("title", instance.title)
+        instance.content = validated_data.get("content", instance.content)
+        instance.time_update = validated_data.get("time_update", instance.time_update)
+        instance.is_published = validated_data.get("title", instance.is_published)
+        instance.cat_id = validated_data.get("cat_id", instance.cat_id)
+        instance.saev()
+        return instance
+
+
 
 # def encode():
 #     model = PeopleModel("King", "Conten: King")

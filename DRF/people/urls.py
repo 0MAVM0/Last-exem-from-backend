@@ -1,0 +1,9 @@
+from django.urls import path
+
+from .views import PeopleAPIView
+
+
+urlpatterns = [
+    path('api/v1/peoplelist/', PeopleAPIView.as_view()),
+    path('api/v1/peoplelist/<int:pk>', PeopleAPIView.as_view()),
+]

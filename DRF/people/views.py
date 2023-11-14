@@ -16,14 +16,33 @@ class PeopleAPIView(APIView):
     def post(self, request):
         serializer = PeopleSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        serializer.save()
 
-        post_new = People.objects.create(
-            title=request.data["title"],
-            content=request.data["content"],
-            cat_id=request.data["cat_id"]
-        )
+        return Response({'post': serializer.data})
 
-        return Response({'post': PeopleSerializer(post_new).data})
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get('pk', None)
+        if not pk:
+            return Response({'error': 'Method PUT not allowed'})
+
+        try:
+            isinstance = People.objects.get(pk=pk)
+        except:
+            return Response({'error':'Object does not exist'})
+
+        serializer = PeopleSerializer(data=request.data, instance=isinstance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"post": serializer.data})
+
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get('pk', None)
+        if not pk:
+            return Response({'error': 'Method DELETE not allowed'})
+
+        People.objects.filter(pk=pk).delete()
+
+        return Response({'error': 'Delete post' + str(pk)})
 
 
 # class PeopleAPIView(generics.ListAPIView):
