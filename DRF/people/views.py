@@ -8,6 +8,11 @@ from .serializer import PeopleSerializer
 from .models import People
 
 
+class PeopleAPIList(generics.ListCreateAPIView):
+    queryset = People.objects.all()
+    serializer_class = PeopleSerializer
+
+
 class PeopleAPIView(APIView):
     def get(self, request):
         w = People.objects.all()
