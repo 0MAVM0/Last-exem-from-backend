@@ -1,22 +1,34 @@
-from rest_framework import generics
+
+from asyncio import mixins
+from rest_framework.viewsets import GenericViewSet
 
 from .serializer import PeopleSerializer
 from .models import People
 
 
-class PeopleAPIList(generics.ListCreateAPIView):
+class PeopleViewSet(mixins.CreateModelMixin,
+                    mixins.RetieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    mixins.ListModelMixin,
+                    GenericViewSet):
     queryset = People.objects.all()
     serializer_class = PeopleSerializer
 
 
-class PeopleAPIUpdate(generics.UpdateAPIView):
-    queryset = People.objects.all()
-    serializer_class = PeopleSerializer
+# class PeopleAPIList(generics.ListCreateAPIView):
+#     queryset = People.objects.all()
+#     serializer_class = PeopleSerializer
 
 
-class PeopleAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = People.objects.all()
-    serializer_class = PeopleSerializer
+# class PeopleAPIUpdate(generics.UpdateAPIView):
+#     queryset = People.objects.all()
+#     serializer_class = PeopleSerializer
+
+
+# class PeopleAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = People.objects.all()
+#     serializer_class = PeopleSerializer
 
 
 # class PeopleAPIView(APIView):
