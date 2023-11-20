@@ -1,4 +1,4 @@
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
 from rest_framework import generics
 
 from .serializer import PeopleSerializer
@@ -15,7 +15,8 @@ class PeopleAPIList(generics.ListCreateAPIView):
 class PeopleAPIUpdate(generics.RetrieveUpdateAPIView):
     queryset = People.objects.all()
     serializer_class = PeopleSerializer
-    permission_classes = (IsOwnerOrReadOnly,)
+    permission_classes = (IsAuthenticated,)
+    # authentication_classes = (TokenAuthentication,)
 
 
 class PeopleAPIDestroy(generics.RetrieveDestroyAPIView):
