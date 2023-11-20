@@ -19,7 +19,7 @@ urlpatterns = [
     path("api/people_delete/<int:pk>", PeopleAPIDestroy.as_view()),
 
     # Djoser
-    path('api/auth', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
 
     # JWT

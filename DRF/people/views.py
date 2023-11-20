@@ -1,3 +1,4 @@
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
 from rest_framework import generics
 
@@ -16,7 +17,7 @@ class PeopleAPIUpdate(generics.RetrieveUpdateAPIView):
     queryset = People.objects.all()
     serializer_class = PeopleSerializer
     permission_classes = (IsAuthenticated,)
-    # authentication_classes = (TokenAuthentication,)
+    authentication_classes = (TokenAuthentication,)
 
 
 class PeopleAPIDestroy(generics.RetrieveDestroyAPIView):
